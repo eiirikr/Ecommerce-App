@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema(
     ],
     sub_category: [
       {
-        type: mongoose.Schema.category,
+        type: mongoose.Schema.ObjectId,
         ref: "subCategory",
       },
     ],
@@ -55,5 +55,5 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-const ProductModel = mongoose.model("Product", productSchema);
+const ProductModel = mongoose.model("product", productSchema);
 export default ProductModel;

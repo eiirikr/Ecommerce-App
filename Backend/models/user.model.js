@@ -48,13 +48,13 @@ const userSchema = new mongoose.Schema(
     ],
     shopping_cart: [
       {
-        type: mongoose.Schema.OnjectId,
+        type: mongoose.Schema.ObjectId,
         ref: "cartProduct",
       },
     ],
     orderHistory: [
       {
-        type: mongoose.Schema.OnjectId,
+        type: mongoose.Schema.ObjectId,
         ref: "order",
       },
     ],
