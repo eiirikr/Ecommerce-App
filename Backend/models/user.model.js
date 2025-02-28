@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema(
     },
     address_details: [
       {
-        type: mongoose.Schema.OnjectId,
+        type: mongoose.Schema.ObjectId,
         ref: "address",
       },
     ],
