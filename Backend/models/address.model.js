@@ -24,6 +24,10 @@ const addressSchema = new mongoose.Schema(
       type: Number,
       default: null,
     },
+    status: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
