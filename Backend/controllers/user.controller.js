@@ -4,6 +4,7 @@ import bcryptjs from "bcryptjs";
 import verifyEmailTemplate from "../utils/verifyEmailTemplate.js";
 import generatedAccessToken from "../utils/generatedAccessToken.js";
 import generatedRefreshToken from "../utils/generatedRefreshToken.js";
+import uploadImageCloudinary from "../utils/uploadImageCloudinary.js";
 
 // Register User Controller
 export async function registerUserController(req, res) {
@@ -193,6 +194,34 @@ export async function logoutController(req, res) {
       message: "Logout successfully",
       error: false,
       success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+// Upload User Avatar
+export async function uploadAvatar(req, res) {
+  try {
+    const userId = req.userId; //auth middleware
+    const image = req.file; // melter middleware
+
+    const upload = await uploadImageCloudinary(image);
+
+    const updateUser = await UserModel.findByIdAndUpdate(userId, {
+      avatar: upload.url,
+    });
+
+    return res.json({
+      message: "Upload profile",
+      data: {
+        _id: userId,
+        avatar: upload.url,
+      },
     });
   } catch (error) {
     return res.status(500).json({
