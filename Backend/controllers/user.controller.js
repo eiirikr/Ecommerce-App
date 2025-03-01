@@ -107,6 +107,14 @@ export async function loginController(req, res) {
   try {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Provide email and password",
+        error: true,
+        success: false,
+      });
+    }
+
     const user = await UserModel.findOne({ email });
 
     if (!user) {
@@ -154,6 +162,37 @@ export async function loginController(req, res) {
         accessToken,
         refreshToken,
       },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+// Logout Controller
+export async function logoutController(req, res) {
+  try {
+    const userid = req.userId; //from middleware
+    const cookiesOption = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    };
+
+    res.clearCookie(accessToken, cookiesOption);
+    res.clearCookie(refreshToken, cookiesOption);
+
+    const removeRefreshToken = await UserModel.findByIdAndUpdate(userid, {
+      refresh_token: "",
+    });
+
+    return res.json({
+      message: "Logout successfully",
+      error: false,
+      success: true,
     });
   } catch (error) {
     return res.status(500).json({
