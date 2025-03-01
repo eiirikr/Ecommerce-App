@@ -3,6 +3,7 @@ import {
   loginController,
   logoutController,
   registerUserController,
+  updateUserDetails,
   uploadAvatar,
   verifyEmailController,
 } from "../controllers/user.controller.js";
@@ -25,5 +26,8 @@ userRouter.get("/logout", auth, logoutController);
 
 // Upload User Avatar
 userRouter.put("/upload-avatar", auth, upload.single("avatar"), uploadAvatar);
+
+// Update User Details
+userRouter.put("/update-user", auth, updateUserDetails);
 
 export default userRouter;
