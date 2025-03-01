@@ -21,6 +21,7 @@
   "homepage": "https://github.com/eiirikr/Ecommerce-Web-App-Server#readme",
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.5.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -28,6 +29,7 @@
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "resend": "^4.1.2"
   }
 }
