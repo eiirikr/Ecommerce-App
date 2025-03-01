@@ -62,3 +62,38 @@ export async function registerUserController(req, res) {
     });
   }
 }
+
+export async function verifyEmailController(req, res) {
+  try {
+    const { code } = req.body;
+
+    const user = await UserModel.findOne({ _id: code });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid code",
+        error: true,
+        success: false,
+      });
+    }
+
+    const updateUser = await UserModel.updateOne(
+      { _id: code },
+      {
+        verify_email: true,
+      }
+    );
+
+    return res.json({
+      message: "Verify email done",
+      error: false,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: true,
+    });
+  }
+}
