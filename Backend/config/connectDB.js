@@ -9,7 +9,7 @@ if (!process.env.MONGODB_URI) {
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
-    console.log("Connect DB");
+    console.log("Connected to Database");
   } catch (error) {
     console.log("Mongodb connection error", error);
     process.exit(1);

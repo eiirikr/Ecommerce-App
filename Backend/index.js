@@ -29,13 +29,13 @@ const PORT = 3000 || process.env.PORT;
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Server is running " + PORT,
+    message: "Server is running at http://localhost:" + PORT,
   });
 });
 app.use("/api/user", userRouter);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log("Server is running", PORT);
+    console.log("Server is running at http://localhost:" + PORT);
   });
 });

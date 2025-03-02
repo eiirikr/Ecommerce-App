@@ -269,3 +269,26 @@ export async function updateUserDetails(req, res) {
     });
   }
 }
+
+// Forgot Password (not login)
+export async function forgotPasswordController(req, res) {
+  try {
+    const { email } = req.body;
+
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Email not available",
+        error: true,
+        success: false,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
