@@ -1,19 +1,15 @@
 import { useState } from "react";
-import { FaRegEyeSlash } from "react-icons/fa6";
-import { FaRegEye } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import Axios from "../utils/axios";
 import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function ForgotPassword() {
   const [data, setData] = useState({
     email: "",
-    password: "",
   });
 
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -34,7 +30,7 @@ export default function Login() {
 
     try {
       const response = await Axios({
-        ...SummaryApi.login,
+        ...SummaryApi.forgotPassword,
         data: data,
       });
 
@@ -44,11 +40,12 @@ export default function Login() {
 
       if (response.data.success) {
         toast.success(response.data.message);
+        navigate("/verification-otp", {
+          state: data,
+        });
         setData({
           email: "",
-          password: "",
         });
-        navigate("/");
       }
     } catch (error) {
       AxiosToastError(error);
@@ -68,7 +65,7 @@ export default function Login() {
       <section className="login">
         <div className="login-box">
           <div className="logo-container">
-            <h1 id="page-logo">LOGIN</h1>
+            <h1 id="page-logo">Forgot Password</h1>
           </div>
           <form onSubmit={handleSubmit} className="user-details">
             <div>
@@ -82,47 +79,19 @@ export default function Login() {
                 onChange={handleChange}
               />
             </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <div className="password-input">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  placeholder="Enter your Password"
-                  name="password"
-                  value={data.password}
-                  onChange={handleChange}
-                />
-                <div
-                  className="showpassword"
-                  onClick={() => setShowPassword((preve) => !preve)}
-                >
-                  {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
-                </div>
-              </div>
-              <div class="forgot-password">
-                <Link
-                  to={"/forgot-password"}
-                  className="fpassword-link"
-                  href="#"
-                >
-                  Forgot Password?
-                </Link>
-              </div>
-            </div>
 
             <button
               disabled={!validateValue}
               className={`btn btn-primary ${!validateValue ? "disabled" : ""}`}
               type="submit"
             >
-              Login
+              Send Otp
             </button>
           </form>
           <p className="register-link">
-            Don't have account?{" "}
-            <Link className="active-link" to={"/register"}>
-              Register
+            Already have account?{" "}
+            <Link className="active-link" to={"/login"}>
+              Login
             </Link>
           </p>
         </div>

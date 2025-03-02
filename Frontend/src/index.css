@@ -1,0 +1,77 @@
+.navbar {
+  background: linear-gradient(to right, blue, indigo, red);
+  color: white;
+  padding: 10px 20px;
+}
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+.top-bar a {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.menu {
+  margin-right: 2%;
+}
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+.search-bar {
+  display: flex;
+  flex: 1;
+  margin: 0 20px;
+}
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+}
+.search-bar button {
+  background: white;
+  border: none;
+  padding: 10px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+.cart-icon {
+  font-size: 20px;
+}
+.suggestions {
+  margin-top: 10px;
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.suggestions a {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    text-align: center;
+  }
+  .main-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  .search-bar {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
