@@ -10,8 +10,8 @@ User Credentials
 - email: admin@mail.com
 - password: admin123
 - Dummy Customer
-- email: jeric@mail.com
-- password: sample123
+- email: jacOTrades@mail.com
+- password: JAC123
 
 User Resources:
 - User Registration
