@@ -7,6 +7,7 @@ import generatedRefreshToken from "../utils/generatedRefreshToken.js";
 import uploadImageCloudinary from "../utils/uploadImageCloudinary.js";
 import generatedOtp from "../utils/generatedOtp.js";
 import forgotPasswordTemplate from "../utils/forgotPasswordTemplate.js";
+import moment from "moment-timezone";
 
 // Register User Controller
 export async function registerUserController(req, res) {
@@ -288,11 +289,12 @@ export async function forgotPasswordController(req, res) {
     }
 
     const otp = generatedOtp();
-    const expireTime = new Date() + 60 * 60 * 1000; // 1hr
 
-    const update = await UserModel.findByIdAndUpdate(user._id, {
+    const expireTime = moment.tz("Asia/Manila").add(1, "hour").toISOString();
+
+    await UserModel.findByIdAndUpdate(user._id, {
       forgot_password_otp: otp,
-      forgot_password_expiry: new Date(expireTime).toISOString(),
+      forgot_password_expiry: expireTime,
     });
 
     await sendEmail({
@@ -303,9 +305,64 @@ export async function forgotPasswordController(req, res) {
         otp: otp,
       }),
     });
+
     return res.json({
       message: "Check your email",
       error: false,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+// Verify Forgot Password Otp
+export async function verifyForgotPasswordOtp(req, res) {
+  try {
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+      return res.status(400).json({
+        message: "Provide required field email, otp.",
+        error: true,
+        success: false,
+      });
+    }
+
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Email not available",
+        error: true,
+        success: false,
+      });
+    }
+
+    const currentTime = new Date();
+    if (user.forgot_password_expiry < currentTime) {
+      return res.status(404).json({
+        message: "Otp is expired",
+        error: true,
+        success: false,
+      });
+    }
+
+    if (otp !== user.forgot_password_otp) {
+      return res.status(400).json({
+        message: "Invalid otp",
+        error: true,
+        success: false,
+      });
+    }
+
+    return res.json({
+      message: "Verify otp successfully",
+      eror: false,
       success: true,
     });
   } catch (error) {
