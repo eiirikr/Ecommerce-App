@@ -5,6 +5,8 @@ import verifyEmailTemplate from "../utils/verifyEmailTemplate.js";
 import generatedAccessToken from "../utils/generatedAccessToken.js";
 import generatedRefreshToken from "../utils/generatedRefreshToken.js";
 import uploadImageCloudinary from "../utils/uploadImageCloudinary.js";
+import generatedOtp from "../utils/generatedOtp.js";
+import forgotPasswordTemplate from "../utils/forgotPasswordTemplate.js";
 
 // Register User Controller
 export async function registerUserController(req, res) {
@@ -284,6 +286,28 @@ export async function forgotPasswordController(req, res) {
         success: false,
       });
     }
+
+    const otp = generatedOtp();
+    const expireTime = new Date() + 60 * 60 * 1000; // 1hr
+
+    const update = await UserModel.findByIdAndUpdate(user._id, {
+      forgot_password_otp: otp,
+      forgot_password_expiry: new Date(expireTime).toISOString(),
+    });
+
+    await sendEmail({
+      sendTo: email,
+      subject: "Forgot password from JAC O' Trades Ecommerce",
+      html: forgotPasswordTemplate({
+        name: user.name,
+        otp: otp,
+      }),
+    });
+    return res.json({
+      message: "Check your email",
+      error: false,
+      success: true,
+    });
   } catch (error) {
     return res.status(500).json({
       message: error.message || error,
