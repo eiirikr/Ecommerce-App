@@ -4,6 +4,7 @@ import {
   loginController,
   logoutController,
   registerUserController,
+  resetPassword,
   updateUserDetails,
   uploadAvatar,
   verifyEmailController,
@@ -37,5 +38,8 @@ userRouter.put("/forgot-password", forgotPasswordController);
 
 // Verify Forgot Password Otp
 userRouter.put("/verify-forgot-password-otp", verifyForgotPasswordOtp);
+
+// Reset Password
+userRouter.put("/reset-password", resetPassword);
 
 export default userRouter;
