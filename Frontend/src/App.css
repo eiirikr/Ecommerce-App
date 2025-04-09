@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
 
 :root {
   --white: #ffffff;
@@ -15,21 +9,10 @@
 }
 
 body {
+  margin: 0;
+  padding: 0;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
-
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 100vh;
-  width: 100vw;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-}
-
 /* Image Section */
 .image {
   background-color: var(--black);
@@ -135,10 +118,12 @@ h2 {
   font-size: 0.9rem;
   color: #555;
   text-decoration: none;
+  padding: 5px;
 }
 
 .forgot-password .fpassword-link:hover {
-  color: #3b82f6;
+  color: white;
+  border-radius: 10px;
   background: linear-gradient(to right, Blue, indigo, red);
   transition: 1s;
 }
@@ -154,6 +139,8 @@ h2 {
 }
 
 .register-link .active-link {
+  margin-top: 15px;
+  font-size: 14px;
   color: #007bff;
   text-decoration: none;
   font-weight: bold;
@@ -178,17 +165,17 @@ h2 {
   gap: 10px;
 }
 
-footer {
+/* footer {
   background: linear-gradient(to right, Blue, indigo, red);
   color: white;
   text-align: center;
   padding: 20px;
   font-size: 10px;
   font-family: Arial, sans-serif;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
+  /* position: absolute;
+  bottom: auto; */
+  /* width: 100%;
+} */ */
 *,
 *:before,
 *:after {

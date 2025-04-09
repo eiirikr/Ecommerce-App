@@ -65,17 +65,17 @@ export default function Register() {
   };
 
   return (
-    <div className="container">
+    <div className="grid grid-cols-2 h-screen w-screen overflow-hidden">
       <section className="image">
         <img
-          className="image-background"
+          className="bg-black flex items-center justify-center w-full h-full object-cover rounded-none"
           src="https://wallpaperaccess.com/full/2593044.jpg"
           alt="Appliances"
         />
       </section>
 
-      <section className="login">
-        <div className="login-box">
+      <section className="flex items-center justify-center bg-white">
+        <div className="w-[70%] text-left">
           <div className="logo-container">
             <h1 id="page-logo">REGISTER</h1>
           </div>
@@ -150,8 +150,8 @@ export default function Register() {
               Register
             </button>
           </form>
-          <p className="register-link">
-            Already have account? <Link to={"/login"}>Login</Link>
+          <p className="mt-4 text-sm">
+            Already have account? <Link className=" text-blue-500 no-underline font-bold" to={"/login"}>Login</Link>
           </p>
         </div>
       </section>

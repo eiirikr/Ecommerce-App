@@ -58,17 +58,17 @@ export default function Login() {
   };
 
   return (
-    <div className="container">
+    <div className="grid grid-cols-2 h-screen w-screen overflow-hidden">
       <section className="image">
         <img
-          className="image-background"
+          className="bg-black flex items-center justify-center w-full h-full object-cover rounded-none"
           src="https://wallpaperaccess.com/full/2593044.jpg"
           alt="Appliances"
         />
       </section>
 
-      <section className="login">
-        <div className="login-box">
+      <section className="flex items-center justify-center bg-white">
+        <div className="w-[70%] text-left">
           <div className="logo-container">
             <h1 id="page-logo">LOGIN</h1>
           </div>
@@ -121,9 +121,9 @@ export default function Login() {
               Login
             </button>
           </form>
-          <p className="register-link">
+          <p className="mt-4 text-sm">
             Don't have account?{" "}
-            <Link className="active-link" to={"/register"}>
+            <Link className=" text-blue-500 no-underline font-bold" to={"/register"}>
               Register
             </Link>
           </p>
